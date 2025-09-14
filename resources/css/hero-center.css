@@ -1,0 +1,30 @@
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-section .row {
+    justify-content: center;
+}
+
+.hero-section .col-lg-6:first-child {
+    text-align: center;
+}
+
+.hero-section .col-lg-6:last-child {
+    display: none;
+}
+
+@media (max-width: 767.98px) {
+    .hero-section {
+        min-height: 50vh;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    .hero-section .col-lg-6:first-child {
+        text-align: center;
+    }
+}

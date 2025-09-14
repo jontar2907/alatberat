@@ -1,0 +1,71 @@
+{
+        HeavyEquipment::create([
+            'name' => 'Excavator',
+            'description' => 'Excavator serbaguna untuk penggalian dan konstruksi.',
+            'price_per_day' => 2500000,
+            'image' => null, // bisa diisi nama file gambar kalau sudah upload
+            'availability' => true,
+            'available_dates' => json_encode(['2025-09-05', '2025-09-07', '2025-09-10']),
+        ]);
+
+        HeavyEquipment::create([
+            'name' => 'Bulldozer',
+            'description' => 'Bulldozer untuk meratakan tanah dan pekerjaan berat.',
+            'price_per_day' => 3000000,
+            'image' => null,
+            'availability' => true,
+            'available_dates' => json_encode(['2025-09-06', '2025-09-08', '2025-09-12']),
+        ]);
+
+        HeavyEquipment::create([
+            'name' => 'Crane',
+            'description' => 'Crane untuk mengangkat material berat di proyek konstruksi.',
+            'price_per_day' => 5000000,
+            'image' => null,
+            'availability' => true,
+            'available_dates' => json_encode(['2025-09-09', '2025-09-11', '2025-09-13']),
+        ]);
+    }
+=======
+    public function run(): void
+    {
+        HeavyEquipment::create([
+            'name' => 'Excavator',
+            'description' => 'Excavator serbaguna untuk penggalian dan konstruksi.',
+            'price_per_day' => 2500000,
+            'image' => null, // bisa diisi nama file gambar kalau sudah upload
+            'availability' => true,
+            'available_dates' => json_encode(['2025-09-05', '2025-09-07', '2025-09-10']),
+        ]);
+
+        HeavyEquipment::create([
+            'name' => 'Bulldozer',
+            'description' => 'Bulldozer untuk meratakan tanah dan pekerjaan berat.',
+            'price_per_day' => 3000000,
+            'image' => null,
+            'availability' => true,
+            'available_dates' => json_encode(['2025-09-06', '2025-09-08', '2025-09-12']),
+        ]);
+
+        HeavyEquipment::create([
+            'name' => 'Crane',
+            'description' => 'Crane untuk mengangkat material berat di proyek konstruksi.',
+            'price_per_day' => 5000000,
+            'image' => null,
+            'availability' => true,
+            'available_dates' => json_encode(['2025-09-09', '2025-09-11', '2025-09-13']),
+        ]);
+
+        // Add equipment with ID 556 explicitly
+        HeavyEquipment::updateOrCreate(
+            ['id' => 556],
+            [
+                'name' => 'Special Equipment 556',
+                'description' => 'Special equipment added to fix 404 error for ID 556.',
+                'price_per_day' => 4000000,
+                'image' => null,
+                'availability' => true,
+                'available_dates' => json_encode(['2025-09-15', '2025-09-16']),
+            ]
+        );
+    }

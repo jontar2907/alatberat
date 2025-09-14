@@ -1,0 +1,99 @@
+/* Custom styles for rental form */
+
+.custom-card {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    transition: box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.custom-card-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.custom-label {
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.custom-input {
+    border: 1.5px solid #ced4da;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.custom-billing-card {
+    border-radius: 1rem;
+    background: #fff8e1;
+}
+
+.custom-billing-header {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.custom-submit-btn {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease;
+}
+
+.custom-submit-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.4);
+}
+
+.custom-equipment-card {
+    background: #f8f9fa;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.custom-equipment-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .custom-card {
+        padding: 1rem;
+    }
+    .custom-label {
+        font-size: 0.9rem;
+    }
+    .custom-submit-btn {
+        font-size: 1rem;
+    }
+}
+
+/* Date input validation styles */
+input.is-valid {
+    border-color: #198754 !important; /* Bootstrap success green */
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+input.is-invalid {
+    border-color: #dc3545 !important; /* Bootstrap danger red */
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
