@@ -58,25 +58,20 @@
                         @foreach($equipments as $equipment)
                         <tr>
                             <td>
-@if($equipment->image)
-    {{-- Debug: show raw image path --}}
-    <div>Image path: {{ $equipment->image }}</div>
-    @php
-        $imagePath = $equipment->image;
-        if (!str_starts_with($imagePath, 'equipments/')) {
-            $imagePath = 'equipments/' . basename($imagePath);
-        }
-    @endphp
-    <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $equipment->name }}" width="80" height="60" style="object-fit: cover;">
-@else
-    <span class="text-muted">No image</span>
-@endif
+                                @if($equipment->image)
+                                    <img src="{{ asset('storage/' . $equipment->image) }}"
+                                         alt="{{ $equipment->name }}"
+                                         width="80" height="60"
+                                         style="object-fit: cover;"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <span class="text-muted" style="display:none;">No image</span>
+                                @else
+                                    <span class="text-muted">No image</span>
+                                @endif
                             </td>
                             <td>{{ $equipment->name }}</td>
                             <td>Rp {{ number_format($equipment->price, 0, ',', '.') }}</td>
-                            <td>
-                                {{ $equipment->jenis_sewa ?? 'N/A' }}
-                            </td>
+                            <td>{{ $equipment->jenis_sewa ?? 'N/A' }}</td>
                             <td>
                                 <span class="badge bg-{{ $equipment->availability ? 'success' : 'danger' }}">
                                     {{ $equipment->availability ? 'Tersedia' : 'Tidak Tersedia' }}
@@ -87,7 +82,7 @@
                                     <a href="{{ route('admin.equipments.edit', $equipment->id) }}" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <form action="{{ route('admin.equipments.delete', $equipment->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.equipments.destroy', $equipment->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus alat berat ini?')">
@@ -126,11 +121,15 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="excel_file" class="form-label">Pilih File Excel</label>
-                        <input type="file" class="form-control @error('excel_file') is-invalid @enderror" id="excel_file" name="excel_file" accept=".xlsx,.xls" required>
+                        <input type="file" class="form-control @error('excel_file') is-invalid @enderror" 
+                               id="excel_file" name="excel_file" accept=".xlsx,.xls" required>
                         @error('excel_file')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        <div class="form-text">Format Excel: name,description,price,availability,image,jenis_sewa (1 untuk tersedia, 0 untuk tidak, kolom image dan jenis_sewa opsional)</div>
+                        <div class="form-text">
+                            Format Excel: name, description, price, availability, image, jenis_sewa 
+                            (1 untuk tersedia, 0 untuk tidak, kolom image dan jenis_sewa opsional)
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

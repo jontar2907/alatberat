@@ -10,7 +10,49 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class HeavyEquipmentController extends Controller
 {
-    // ... existing methods ...
+    // Display a listing of the heavy equipment
+    public function index()
+    {
+        $equipments = HeavyEquipment::all();
+        return view('admin.equipments', compact('equipments'));
+    }
+
+    // Export heavy equipment to Excel
+    public function export()
+    {
+        $equipments = HeavyEquipment::all();
+
+        // Create new Spreadsheet object
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set headers
+        $sheet->setCellValue('A1', 'Nama');
+        $sheet->setCellValue('B1', 'Deskripsi');
+        $sheet->setCellValue('C1', 'Harga');
+        $sheet->setCellValue('D1', 'Ketersediaan');
+        $sheet->setCellValue('E1', 'Jenis Sewa');
+
+        // Add data
+        $row = 2;
+        foreach ($equipments as $equipment) {
+            $sheet->setCellValue('A' . $row, $equipment->name);
+            $sheet->setCellValue('B' . $row, $equipment->description);
+            $sheet->setCellValue('C' . $row, $equipment->price);
+            $sheet->setCellValue('D' . $row, $equipment->availability ? 1 : 0);
+            $sheet->setCellValue('E' . $row, $equipment->jenis_sewa ?? 'Perhari');
+            $row++;
+        }
+
+        // Set headers for download
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="heavy_equipments.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
+    }
 
     // Import alat berat dari Excel dengan gambar embedded
     public function importEquipmentsExcel(Request $request)
@@ -94,7 +136,7 @@ class HeavyEquipmentController extends Controller
                     'work_location' => 'Default Location',
                     'work_purpose' => 'Default Purpose',
                     'jenis_sewa' => strtolower($jenisSewa) ?: 'perhari',
-                    'jumlah_pemakaian' => 1,
+                    'jumlah_hari' => 1,
                     'start_date' => now(),
                     'end_date' => now()->addDay(),
                     'transportasi' => null,
